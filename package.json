@@ -1,0 +1,31 @@
+{
+  "name": "babynames",
+  "version": "0.0.0",
+  "description": "Fun with the Social Security Administration's baby name data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/TimeMagazine/babynames.git"
+  },
+  "keywords": [
+    "babies",
+    "names"
+  ],
+  "dependencies": {
+    "adm-zip": "*",
+    "d3": "*",
+    "optimist": "*",
+    "mongodb": "*",
+    "progress": "*",
+    "mkdirp": "*"
+  },
+  "author": "Chris Wilson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TimeMagazine/babynames/issues"
+  },
+  "homepage": "https://github.com/TimeMagazine/babynames"
+}
