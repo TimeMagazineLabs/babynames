@@ -1,6 +1,3 @@
-babynames
-=========
-
 Fun with the Social Security Administration's baby name data
 
 ##Setup
@@ -90,3 +87,7 @@ The script comes with several options for basic analysis:
 + `maxima`: Identify all the local maxima -- points where every value 5 years before and after is lower. Only counts maxima that are at least 25 percent of peak value.
 + `pronunications`: See if the name is listed in the [CMU Pronouncing Dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict). Require that you `npm install cmudict` manually.
 + `dense`: If a name does not appear in a year in the range specified between `start` and `end`, list that year in the data as `0`. Otherwise it is not included at all (a "sparse" format).
+
+##License
+
+This script is provided free and open-source by Time under the MIT license. If you use it, you are politely encouraged to acknowledge Time and link to this page.
