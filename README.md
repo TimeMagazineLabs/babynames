@@ -63,7 +63,7 @@ Your choices are:
 + `json`: Each name is stored as an individual JSON file in the `/flat/individual/` directory.
 + `jsonp`: Each name is stored as an individual JSON-P file in the `/flat/individual/` directory. It is wrapped in a callback function named `ticallback` by default, which you can override with `opts.callback`.
 + `csvs`: Each name is stored as an individual CSV file in the `/flat/individual/` directory.
-+ `csv`: All names are packaged into one CSV file and stored in `/flat/names.csv/`. This file will be able 30MB if you don't include limiting specifications (below).
++ `csv`: All names are packaged into one CSV file and stored in `/flat/names.csv/`. This file will be able 30MB if you don't include limiting specifications (below). This preprocessed file is included in this repo.
 + `mongodb`: All names are inserted into a MongoDB instance. You are responsive for running a Mongo server at `localhost:27017` or updating the source to point to your  instance. *Note:* Because this is optional, the [mongodb](https://www.npmjs.org/package/mongodb) Node module is not listed as a dependency, you you'll need to install it yourself.
 
 ##Reducing the size
