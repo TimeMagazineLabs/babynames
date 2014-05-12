@@ -19,10 +19,6 @@ function store(opts) {
 
 	opts.format = opts.format.toLowerCase();
 
-	if (opts.format === "csv") {
-		opts.dense = true;
-	}
-
 	if (opts.maxima || opts.normalize) {
 		opts.peaks = true;
 	}
@@ -44,42 +40,68 @@ function store(opts) {
 }
 
 function flatfiles(data, opts) {
-	if (opts.format === "csv" || opts.format === "csvs") {
-		opts.dense = true;
-	}
+	mkdirp("flat/individuals", function() {
+			log.info("Writing to flat files.");
+			var bar = new ProgressBar(':bar :percent', { total: data.length, complete: "#", width: 100 });
 
-	mkdirp("flat", function() {
-		log.info("Writing to flat files.");
+			var roster = [];
 
-		var bar = new ProgressBar(':bar :percent', { total: data.length, complete: "#", width: 100 });
+			if (opts.format === "csv" || opts.format === "csvs") {
+				if (!opts.type) {
+					opts.type = "values";
+				}
 
-		var roster = [];
-
-		if (opts.format === "csv") {
-			var csv = [];
-			data.forEach(function(d) {
-				var datum = opts.type == "percents" ? d.percents : d.values;
-
-				datum.name = d.name;
-				datum.gender = d.gender;
+				var csv = [],
+					headers = ["name", "gender"];
 
 				if (opts.pronunciation) {
-					datum.stressed = d.stressed;
-					datum.pronunciation = d.pronunciation;
-				}
-				csv.push(datum);
-				bar.tick();
-				roster.push(d._id);
-			});
-			fs.writeFileSync("./flat/" + "names.csv", d3.csv.format(csv));
-			return;
-		} else {
-			if (opts.format == "jsonp") {
-				opts.callback = opts.callback || "ticallback";
-			}
+					headers.push("pronunciation");
+					headers.push("stressed");
+				}				
 
-			mkdirp("flat/individuals", function() {
+				for (var year = opts.start; year <= opts.end; year += 1) {
+					headers.push(year);
+				}
+
+				if (opts.format === "csv") {
+					var ws = fs.createWriteStream("./flat/names.csv");
+					ws.write(d3.csv.formatRows([headers]) + "\n");
+				}
+
 				data.forEach(function(d) {
+					var datum = {},
+						row = [];
+
+					// densify
+					headers.forEach(function(header) {
+						if (typeof header == "number") {
+							if (typeof d[opts.type][header] == "undefined") {
+								d[opts.type][header] = 0;
+							}
+							datum[header] = d[opts.type][header];
+							row.push(d[opts.type][header]);
+						} else {
+							datum[header] = d[header]
+							row.push(d[header]);
+						}
+					});
+
+					if (opts.format === "csv") {
+						ws.write(d3.csv.formatRows([row]) + "\n");
+					} else {
+						fs.writeFileSync("./flat/individuals/" + d._id + ".csv", d3.csv.format([datum]));				
+					}
+					bar.tick();
+				});
+				//ws.close();
+
+			} else {
+				if (opts.format == "jsonp") {
+					opts.callback = opts.callback || "ticallback";
+				}
+
+				data.forEach(function(d) {
+
 					if (opts.format == "jsonp") {
 						fs.writeFileSync("./flat/individuals/" + d._id + ".json", opts.callback + "('" + JSON.stringify(d) + "');");
 					} else if (opts.format == "csvs") {
@@ -91,9 +113,7 @@ function flatfiles(data, opts) {
 					bar.tick();
 				});
 				fs.writeFileSync("./flat/roster.json", JSON.stringify(roster));
-
-			});
-		}
+			}
 	});
 }
 
@@ -129,7 +149,7 @@ function mongo(data, opts) {
 }
 
 var commands = {
-	download: require("./lib/download"),
+	download: download,
 	store: store
 }
 

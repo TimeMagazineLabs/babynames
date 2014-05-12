@@ -25,7 +25,6 @@ build/Release
 node_modules
 
 data
-flat
 dicts
 names.zip
 
