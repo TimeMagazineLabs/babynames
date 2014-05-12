@@ -20,7 +20,8 @@
     "optimist": "*",
     "mongodb": "*",
     "progress": "*",
-    "mkdirp": "*"
+    "mkdirp": "*",
+    "npmlog": "*"
   },
   "author": "Chris Wilson",
   "license": "MIT",
