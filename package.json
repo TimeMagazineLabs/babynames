@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "adm-zip": "*",
-    "node-csv-stringify": "*",
+    "csv-stringify": "*",
     "optimist": "*",
     "mongodb": "*",
     "progress": "*",
