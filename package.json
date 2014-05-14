@@ -4,7 +4,7 @@
   "description": "Fun with the Social Security Administration's baby name data",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./test/test.js"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "adm-zip": "*",
-    "d3": "*",
+    "node-csv-stringify": "*",
     "optimist": "*",
     "mongodb": "*",
     "progress": "*",

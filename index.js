@@ -2,8 +2,9 @@
 
 var fs = require("fs"),
 	log = require("npmlog"),
-	d3 = require('d3'),
-	mkdirp = require('mkdirp');
+	helper = require("./lib/helper"),
+	stringify = require("csv-stringify"),
+	mkdirp = require("mkdirp");
 
 var ProgressBar = require('progress');
 
@@ -11,7 +12,7 @@ var download = require("./lib/download"),
 	aggregate = require("./lib/aggregate"),
 	tools = require("./lib/tools");
 
-function store(opts) {
+var store = module.exports.store = function(opts) {
 	if (!opts.format) {
 		log.error("Please provide a --format param. Options are json, csv, csvs, jsonp, mongodb");
 		return;
@@ -44,7 +45,7 @@ function flatfiles(data, opts) {
 			log.info("Writing to flat files.");
 			var bar = new ProgressBar(':bar :percent', { total: data.length, complete: "#", width: 100 });
 
-			var roster = [];
+			var roster = [];				
 
 			if (opts.format === "csv" || opts.format === "csvs") {
 				if (!opts.type) {
@@ -64,12 +65,11 @@ function flatfiles(data, opts) {
 
 				if (opts.format === "csv") {
 					var ws = fs.createWriteStream("./flat/names.csv");
-					ws.write(d3.csv.formatRows([headers]) + "\n");
+					ws.write(headers.join(",") + "\n");
 				}
 
 				data.forEach(function(d) {
-					var datum = {},
-						row = [];
+					var row = [];
 
 					// densify
 					headers.forEach(function(header) {
@@ -77,23 +77,21 @@ function flatfiles(data, opts) {
 							if (typeof d[opts.type][header] == "undefined") {
 								d[opts.type][header] = 0;
 							}
-							datum[header] = d[opts.type][header];
 							row.push(d[opts.type][header]);
 						} else {
-							datum[header] = d[header];
 							row.push(d[header]);
 						}
 					});
 
 					if (opts.format === "csv") {
-						ws.write(d3.csv.formatRows([row]) + "\n");
+						ws.write(row.join(",") + "\n");
 					} else {
-						fs.writeFileSync("./flat/individuals/" + d._id + ".csv", d3.csv.format([datum]));				
+						stringify([headers, row], function(err, output) {
+							fs.writeFileSync("./flat/individuals/" + d._id + ".csv", output);
+						});
 					}
 					bar.tick();
 				});
-				//ws.close();
-
 			} else {
 				if (opts.format == "jsonp") {
 					opts.callback = opts.callback || "ticallback";
@@ -103,8 +101,6 @@ function flatfiles(data, opts) {
 
 					if (opts.format == "jsonp") {
 						fs.writeFileSync("./flat/individuals/" + d._id + ".json", opts.callback + "('" + JSON.stringify(d) + "');");
-					} else if (opts.format == "csvs") {
-						fs.writeFileSync("./flat/individuals/" + d._id + ".csv", d3.csv.format(d.values));				
 					} else {
 						fs.writeFileSync("./flat/individuals/" + d._id + ".json", JSON.stringify(d, null, 2));				
 					}
@@ -131,7 +127,7 @@ function mongo(data, opts) {
 		var bar = new ProgressBar(':bar :percent', { total: data.length + 1, complete: "#", width: 100 });
 		bar.tick();
 
-		d3.values(data).forEach(function(d) {
+		helper.values(data).forEach(function(d) {
 			collection.save(d, function(err, doc) {
 				if (err) {
 					log.error(err);
@@ -156,5 +152,8 @@ var commands = {
 if (require.main === module) {
 	var argv = require('optimist').argv;
 	log.level = argv.log || argv.log_level || "info";
+	if (!commands[argv._[0]]) {
+		log.error("Command not found. Options are", helper.keys(commands));
+	}
 	commands[argv._[0]](argv);
 }
