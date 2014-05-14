@@ -13,7 +13,7 @@ var download = require("./lib/download"),
 
 function store(opts) {
 	if (!opts.format) {
-		log.error("Please provide a --format param. Options are json, csv, csvs, jsonp, mongodb")
+		log.error("Please provide a --format param. Options are json, csv, csvs, jsonp, mongodb");
 		return;
 	}
 
@@ -51,8 +51,7 @@ function flatfiles(data, opts) {
 					opts.type = "values";
 				}
 
-				var csv = [],
-					headers = ["name", "gender"];
+				var headers = ["name", "gender"];
 
 				if (opts.pronunciation) {
 					headers.push("pronunciation");
@@ -81,7 +80,7 @@ function flatfiles(data, opts) {
 							datum[header] = d[opts.type][header];
 							row.push(d[opts.type][header]);
 						} else {
-							datum[header] = d[header]
+							datum[header] = d[header];
 							row.push(d[header]);
 						}
 					});
@@ -151,11 +150,11 @@ function mongo(data, opts) {
 var commands = {
 	download: download,
 	store: store
-}
+};
 
 // if called directly
 if (require.main === module) {
 	var argv = require('optimist').argv;
-	log.level = argv["log"] || argv.log_level || "info";
+	log.level = argv.log || argv.log_level || "info";
 	commands[argv._[0]](argv);
 }
