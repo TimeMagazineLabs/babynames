@@ -8,7 +8,7 @@ var fs = require("fs"),
 
 var ProgressBar = require('progress');
 
-var download = require("./lib/download"),
+var download = module.exports.download = require("./lib/download"),
 	aggregate = require("./lib/aggregate"),
 	tools = require("./lib/tools");
 
