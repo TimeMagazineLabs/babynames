@@ -153,7 +153,7 @@ if (require.main === module) {
 	var argv = require('optimist').argv;
 	log.level = argv.log || argv.log_level || "info";
 	if (!commands[argv._[0]]) {
-		log.error("Command not found. Options are", helper.keys(commands));
+		log.error("Command not found. Options are: ", helper.keys(commands));
 	}
 	commands[argv._[0]](argv);
 }
