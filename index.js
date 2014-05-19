@@ -13,6 +13,12 @@ var download = module.exports.download = require("./lib/download"),
 	tools = require("./lib/tools");
 
 var store = module.exports.store = function(opts) {
+	if (opts.type == "phonemes") {
+		opts.pronunciation = true;
+		opts.peaks = true;
+		opts.format = "json";
+	}
+
 	if (!opts.format) {
 		log.error("Please provide a --format param. Options are json, csv, csvs, jsonp, mongodb");
 		return;
@@ -33,8 +39,14 @@ var store = module.exports.store = function(opts) {
 		}
 	});
 
+	if (opts.type == "phonemes") {
+		phonemes(data, opts);
+		return;
+	}
+
 	if (opts.format == "mongo" || opts.format == "mongodb") {
 		mongo(data, opts);
+		return;
 	} else {
 		flatfiles(data, opts);
 	}
@@ -141,6 +153,50 @@ function mongo(data, opts) {
 			});
 		});
 	});
+}
+
+// aggregate by Nth phoneme (negative N counts from back)
+var phonemes = function(data, opts) {
+	var N = opts.N || 0;
+
+	var phonemes = {};
+
+	data.forEach(function(d) {
+		if (d.pronunciation) {
+			var phoneme = d.pronunciation.split(" ").slice(N)[0];
+			if (!phoneme) {
+				return 0;
+			}
+			if (!phonemes[phoneme]) {
+				phonemes[phoneme] = {
+					percents: {},
+					names: []
+				}
+				for (var y = opts.start; y <= opts.end; y += 1) {
+					phonemes[phoneme].percents[y] = 0;
+				}
+			}
+			phonemes[phoneme].names.push({
+				name: d.name,
+				peak: d.peaks.percents.value
+			});
+
+			for (var y = opts.start; y <= opts.end; y += 1) {
+				phonemes[phoneme].percents[y] += d.percents[y] || 0;
+			}
+		}
+	});
+
+	phonemes = helper.entries(phonemes).map(function(d) {
+		return {
+			phoneme: d.key,
+			names: d.value.names.sort(function(a, b) { return b.peak - a.peak; }).map(function(d) { return d.name; }),
+			percents: helper.entries(d.value.percents).filter(function(d) { return d.value != 0; })
+		}
+	});
+
+
+	fs.writeFileSync("./flat/phonemes.json", JSON.stringify(phonemes));
 }
 
 var commands = {

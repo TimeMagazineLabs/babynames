@@ -1,4 +1,6 @@
-Fun with the Social Security Administration's baby name data[![Build Status](https://travis-ci.org/TimeMagazine/babynames.png)](https://travis-ci.org/TimeMagazine/babynames)
+Fun with the Social Security Administration's baby name data
+
+[![Build Status](https://travis-ci.org/TimeMagazine/babynames.png)](https://travis-ci.org/TimeMagazine/babynames)
 
 ##Setup
 
@@ -87,6 +89,13 @@ The script comes with several options for basic analysis:
 + `maxima`: Identify all the local maxima -- points where every value 5 years before and after is lower. Only counts maxima that are at least 25 percent of peak value.
 + `pronunications`: See if the name is listed in the [CMU Pronouncing Dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict). Require that you `npm install cmudict` manually.
 + `dense`: If a name does not appear in a year in the range specified between `start` and `end`, list that year in the data as `0`. Otherwise it is not included at all (a "sparse" format).
+
+##Types
+
+For csv outputs, you can get the data back as either raw numbers of new babies each year with a given name (`--type=values`, which is the default) or as a percent (`--type=values`). JSON formats return both percents and values. 
+
+##Phonemes
+You can also pass a special type, `--type=phonemes`, to get back a JSON document of phoneme percents for each year for all names. By default, the script examines the first phoneme in each name. You can use `--N==TK` to aggregate around the TKth phonemes in the name. Use a negative value to start from the end.
 
 ##License
 
