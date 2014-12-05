@@ -10,7 +10,7 @@ var ProgressBar = require('progress');
 
 var download = module.exports.download = require("./lib/download"),
 	aggregate = require("./lib/aggregate"),
-	tools = module.exports.tools = require("./lib/tools");
+	tools = require("./lib/tools");
 
 var store = module.exports.store = function(opts) {
 	if (opts.type == "phonemes") {
@@ -201,7 +201,7 @@ var phonemes = function(data, opts) {
 
 var commands = {
 	download: download,
-	store: store,
+	store: store
 };
 
 // if called directly
