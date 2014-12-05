@@ -10,7 +10,7 @@ var ProgressBar = require('progress');
 
 var download = module.exports.download = require("./lib/download"),
 	aggregate = require("./lib/aggregate"),
-	tools = require("./lib/tools");
+	tools = module.exports.tools = require("./lib/tools");
 
 var store = module.exports.store = function(opts) {
 	if (opts.type == "phonemes") {
@@ -33,7 +33,7 @@ var store = module.exports.store = function(opts) {
 	var data = aggregate(opts);
 
 	// tools
-	["peaks", "dense", "normalize", "maxima", "pronunciation"].forEach(function(tool) {
+	["peaks", "dense", "normalize", "maxima", "pronunciation", "decades"].forEach(function(tool) {
 		if (opts[tool]) {
 			tools[tool](data, opts);			
 		}
@@ -201,7 +201,7 @@ var phonemes = function(data, opts) {
 
 var commands = {
 	download: download,
-	store: store
+	store: store,
 };
 
 // if called directly
