@@ -100,3 +100,5 @@ You can also pass a special type, `--type=phonemes`, to get back a JSON document
 ##License
 
 This script is provided free and open-source by Time under the MIT license. If you use it, you are politely encouraged to acknowledge Time and link to this page.
+
+The dictionary file [dict/2of12.txt](dict/2of12.txt) is from the [12 Dicts project](http://wordlist.aspell.net/12dicts-readme/), which is in the public domain.
