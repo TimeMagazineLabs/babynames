@@ -16,12 +16,14 @@
   ],
   "dependencies": {
     "adm-zip": "*",
+    "cheerio": "^0.19.0",
     "csv-stringify": "*",
-    "optimist": "*",
-    "mongodb": "*",
-    "progress": "*",
     "mkdirp": "*",
-    "npmlog": "*"
+    "mongodb": "*",
+    "npmlog": "*",
+    "optimist": "*",
+    "progress": "*",
+    "request": "^2.54.0"
   },
   "author": "Chris Wilson",
   "license": "MIT",

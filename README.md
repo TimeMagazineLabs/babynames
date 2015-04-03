@@ -1,3 +1,5 @@
+#Baby Names!
+
 Fun with the Social Security Administration's baby name data
 
 [![Build Status](https://travis-ci.org/TimeMagazine/babynames.png)](https://travis-ci.org/TimeMagazine/babynames)
@@ -9,6 +11,7 @@ This is a Node.js script, so you should consider [downloading Node](http://nodej
 To download the repo, simply clone it:
 
 	git clone https://github.com/TimeMagazine/babynames.git
+	cd babynames
 
 Then install the dependencies:
 
@@ -20,13 +23,21 @@ First, you need to get the raw data from the [Social Security Administration](ht
 
 	./index.js download 
 
+###Total babies born each year
+
+There is also a file called `extra/totals.json` with data on the total number of babies born (or at least, those issued a SSN) each year, [per the SSA](http://www.ssa.gov/oact/babynames/numberUSbirths.html). This is useful because the totals are higher than the sum of each name in the name files, which don't include names that occur fewer than five times.
+
+If you want to re-download the data--maybe it's a new year or you suspect there has been a revision--just run `./scripts/total_births.json`, which will scrape the page on the SSA website and overwrite the file in the repo.
+
+###Baby names
+
 The Social Security Administration organizes the baby name data, somewhat inconveniently, as year-by-year text files named `yob[year].txt`. The above command extracts those files to a local directory named `data/` and then deletes the zip file it downloaded. If you want to keep that zip file for some reason, just pass `--cache` to the command.
 
 Once that's done, you can aggregate the data to a per-name basis and store it in a variety of formats:
 
 	./index.js store --format=json
 
-First, the script reads every file and stores the data on a per-name basis in memory. For each name, it records both the absolute number of babies with that name in a given year and the percentage of all babies of the same gender with that name. The denominator in that calculation is the gender-specific sum of all names for a given year, which will be lower than the actual number of children born in the United States, given that the data only counts names that appear at least five times. The years are stored as keys in an object for fast retrieval:
+First, the script reads every file and stores the data on a per-name basis in memory. For each name, it records both the absolute number of babies with that name in a given year and the percentage of all babies of the same gender with that name. The denominator in that calculation is the gender-specific total number of babies [as reported on SSA.gov](http://www.ssa.gov/oact/babynames/numberUSbirths.html), NOT the calculated sum of all baby name frequencies (which will be lower than the actual number of children born in the United States, given that the data only counts names that appear at least five times). The years are stored as keys in an object for fast retrieval:
 
 	{
 	  "_id": "Lothar-M",
@@ -69,7 +80,7 @@ Your choices are:
 + `mongodb`: All names are inserted into a MongoDB instance. You are responsible for running a Mongo server at `localhost:27017` or updating the source to point to your  instance. *Note:* Because this is optional, the [mongodb](https://www.npmjs.org/package/mongodb) Node module is not listed as a dependency, you you'll need to install it yourself.
 
 ##Reducing the size
-As of 2013, there are 102,658 names that show up in at least one year at least five times. Many users will not be interested in this volume of data. There are several ways to reduce the scope with command line options.
+As of 2013, there are 102,691 names that show up in at least one year at least five times. Many users will not be interested in this volume of data. There are several ways to reduce the scope with command line options.
 
 ###Limit the years
 
