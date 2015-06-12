@@ -27,7 +27,7 @@ First, you need to get the raw data from the [Social Security Administration](ht
 
 There is also a file called `extra/totals.json` with data on the total number of babies born (or at least, those issued a SSN) each year, [per the SSA](http://www.ssa.gov/oact/babynames/numberUSbirths.html). This is useful because the totals are higher than the sum of each name in the name files, which don't include names that occur fewer than five times.
 
-If you want to re-download the data--maybe it's a new year or you suspect there has been a revision--just run `./scripts/total_births.json`, which will scrape the page on the SSA website and overwrite the file in the repo.
+If you want to re-download the data--maybe it's a new year or you suspect there has been a revision--just run `./scripts/total_births.js`, which will scrape the page on the SSA website and overwrite the file in the repo.
 
 ###Baby names
 
