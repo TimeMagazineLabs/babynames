@@ -206,7 +206,7 @@ var commands = {
 
 // if called directly
 if (require.main === module) {
-	var argv = require('optimist').argv;
+	var argv = require('minimist')(process.argv.slice(2));
 	log.level = argv.log || argv.log_level || "info";
 	if (!commands[argv._[0]]) {
 		log.error("Command not found. Options are: ", helper.keys(commands));
