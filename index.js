@@ -57,7 +57,7 @@ function flatfiles(data, opts) {
 			log.info("Writing to flat files.");
 			var bar = new ProgressBar(':bar :percent', { total: data.length, complete: "#", width: 100 });
 
-			var roster = [];				
+			var roster = [];
 
 			if (opts.format === "csv" || opts.format === "csvs") {
 				if (!opts.type) {
@@ -120,6 +120,32 @@ function flatfiles(data, opts) {
 					bar.tick();
 				});
 				fs.writeFileSync("./flat/roster.json", JSON.stringify(roster));
+
+				// make a roster with only gender specifications for names that show up for both genders
+				var roster_short = [];
+				roster.forEach(function(d) {
+					var name = d.split("-")[0],
+						gender = d.split("-")[1];
+
+					console.log(name, gender);
+
+					if (gender == "F") {
+						if (roster.indexOf(name + "-M") != -1) {
+							roster_short.push(name + " (F)");
+						} else {
+							roster_short.push(name);
+						}
+					} else {
+						if (roster.indexOf(name + "-F") != -1) {
+							roster_short.push(name + " (M)");
+						} else {
+							roster_short.push(name);
+						}
+					}
+				});
+				fs.writeFileSync("./flat/roster_short.json", JSON.stringify(roster_short));
+
+
 			}
 	});
 }
