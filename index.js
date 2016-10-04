@@ -33,7 +33,7 @@ var store = module.exports.store = function(opts) {
 	var data = aggregate(opts);
 
 	// tools
-	["peaks", "dense", "normalize", "maxima", "pronunciation"].forEach(function(tool) {
+	["peaks", "dense", "normalize", "maxima", "pronunciation", "decades"].forEach(function(tool) {
 		if (opts[tool]) {
 			tools[tool](data, opts);			
 		}
