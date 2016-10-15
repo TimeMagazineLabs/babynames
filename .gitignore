@@ -26,6 +26,6 @@ node_modules
 
 data
 names.zip
-flat
+flat/*
 
 .DS_Store
