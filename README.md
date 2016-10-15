@@ -108,6 +108,9 @@ For csv outputs, you can get the data back as either raw numbers of new babies e
 ##Phonemes
 You can also pass a special type, `--type=phonemes`, to get back a JSON document of phoneme percents for each year for all names. By default, the script examines the first phoneme in each name. You can use `--N==TK` to aggregate around the TKth phonemes in the name. Use a negative value to start from the end.
 
+##Extras
+We've now got British baby names going back to 1996, accessed on Oct. 5, 2016 from the U.K. [Office for National Statistics](http://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/adhocs/006073babynames1996to2015). The total number of live births was downloaded [here](http://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/birthsummarytables) from the same source.
+
 ##License
 
 This script is provided free and open-source by Time under the MIT license. If you use it, you are politely encouraged to acknowledge Time and link to this page.
