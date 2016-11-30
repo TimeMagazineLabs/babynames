@@ -16,8 +16,10 @@
   ],
   "dependencies": {
     "adm-zip": "^0.4.7",
+    "async": "^2.1.4",
     "cheerio": "^0.22.0",
     "csv-stringify": "^1.0.2",
+    "downcache": "0.0.9",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "mongodb": "^2.1.18",

@@ -28,5 +28,7 @@ data
 names.zip
 flat
 flat/*
+extra/states/*
+scripts/cache/
 
 .DS_Store
