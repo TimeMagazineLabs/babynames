@@ -41,7 +41,6 @@ readFile("../extra/british_girls.csv", "F", function() {
 			}
 		});
 
-
 		var csvStream = csv.createWriteStream({ headers: headers_output }),
 		    writableStream = fs.createWriteStream("../flat/british.csv");
 
