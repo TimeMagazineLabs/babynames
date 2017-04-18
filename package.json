@@ -16,16 +16,16 @@
   ],
   "dependencies": {
     "adm-zip": "^0.4.7",
-    "async": "^2.1.4",
+    "async": "^2.3.0",
     "cheerio": "^0.22.0",
-    "csv-stringify": "^1.0.2",
+    "csv-stringify": "^1.0.4",
     "downcache": "0.0.9",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "mongodb": "^2.1.18",
-    "npmlog": "^4.0.0",
-    "progress": "^1.1.8",
-    "request": "^2.72.0"
+    "mongodb": "^2.2.25",
+    "npmlog": "^4.0.2",
+    "progress": "^2.0.0",
+    "request": "^2.81.0"
   },
   "author": "Chris Wilson",
   "license": "MIT",
