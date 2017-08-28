@@ -1,10 +1,10 @@
-#Baby Names!
+# Baby Names!
 
 Fun with the Social Security Administration's baby name data
 
 [![Build Status](https://travis-ci.org/TimeMagazine/babynames.png)](https://travis-ci.org/TimeMagazine/babynames)
 
-##Setup
+## Setup
 
 This is a Node.js script, so you should consider [downloading Node](http://nodejs.org/) before attempting to run it.
 
@@ -17,19 +17,19 @@ Then install the dependencies:
 
 	npm install
 
-##Data 
+## Data 
 
 First, you need to get the raw data from the [Social Security Administration](http://www.ssa.gov/OACT/babynames/). This script will download and unzip it for you with the following command:
 
 	./index.js download 
 
-###Total babies born each year
+### Total babies born each year
 
 There is also a file called `extra/totals.json` with data on the total number of babies born (or at least, those issued a SSN) each year, [per the SSA](http://www.ssa.gov/oact/babynames/numberUSbirths.html). This is useful because the totals are higher than the sum of each name in the name files, which don't include names that occur fewer than five times.
 
 If you want to re-download the data--maybe it's a new year or you suspect there has been a revision--just run `./scripts/total_births.js`, which will scrape the page on the SSA website and overwrite the file in the repo.
 
-###Baby names
+### Baby names
 
 The Social Security Administration organizes the baby name data, somewhat inconveniently, as year-by-year text files named `yob[year].txt`. The above command extracts those files to a local directory named `data/` and then deletes the zip file it downloaded. If you want to keep that zip file for some reason, just pass `--cache` to the command.
 
@@ -69,7 +69,7 @@ First, the script reads every file and stores the data on a per-name basis in me
 	  }
 	}
 
-###Formats
+### Formats
 
 Your choices are:
 
@@ -79,19 +79,19 @@ Your choices are:
 + `csv`: All names are packaged into one CSV file and stored in `/flat/names.csv/`. This file will be able 30MB if you don't include limiting specifications (below). This preprocessed file is included in this repo.
 + `mongodb`: All names are inserted into a MongoDB instance. You are responsible for running a Mongo server at `localhost:27017` or updating the source to point to your  instance. *Note:* Because this is optional, the [mongodb](https://www.npmjs.org/package/mongodb) Node module is not listed as a dependency, you you'll need to install it yourself.
 
-##Reducing the size
+## Reducing the size
 As of 2013, there are 102,691 names that show up in at least one year at least five times. Many users will not be interested in this volume of data. There are several ways to reduce the scope with command line options.
 
-###Limit the years
+### Limit the years
 
 + `start`: Don't retrieve years before this year. Ex: `--start=1950`. Default is `1880`, the first year of the data.
 + `end`: Don't retrieve years after this year. Ex: `--end=2000`. Default is the present year.
 
-###Exclude uncommon names 
+### Exclude uncommon names 
 + `min`: Don't include names that don't show up at least this many time in at least one year. Ex: `--min=25`. Default is `0`.
 + `cutoff`: Don't include names that don't show up in at least this many individual years. Ex: `--cutoff=50`. Default is `0`.
 
-##Analysis
+## Analysis
 
 The script comes with several options for basic analysis:
 
@@ -101,17 +101,17 @@ The script comes with several options for basic analysis:
 + `pronunications`: See if the name is listed in the [CMU Pronouncing Dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict). Require that you `npm install cmudict` manually.
 + `dense`: If a name does not appear in a year in the range specified between `start` and `end`, list that year in the data as `0`. Otherwise it is not included at all (a "sparse" format).
 
-##Types
+## Types
 
 For csv outputs, you can get the data back as either raw numbers of new babies each year with a given name (`--type=values`, which is the default) or as a percent (`--type=values`). JSON formats return both percents and values. 
 
-##Phonemes
+## Phonemes
 You can also pass a special type, `--type=phonemes`, to get back a JSON document of phoneme percents for each year for all names. By default, the script examines the first phoneme in each name. You can use `--N==TK` to aggregate around the TKth phonemes in the name. Use a negative value to start from the end.
 
-##Extras
+## Extras
 We've now got British baby names going back to 1996, accessed on Oct. 5, 2016 from the U.K. [Office for National Statistics](http://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/adhocs/006073babynames1996to2015). The total number of live births was downloaded [here](http://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/birthsummarytables) from the same source.
 
-##License
+## License
 
 This script is provided free and open-source by Time under the MIT license. If you use it, you are politely encouraged to acknowledge Time and link to this page.
 
