@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-
+let names = TAM CHUN ON
+gender = male
 var fs = require("fs"),
 	log = require("npmlog"),
 	helper = require("./lib/helper"),
