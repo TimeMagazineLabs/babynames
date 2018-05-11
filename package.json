@@ -16,13 +16,12 @@
   ],
   "dependencies": {
     "adm-zip": "^0.4.7",
-    "async": "^2.3.0",
-    "cheerio": "^0.22.0",
-    "csv-stringify": "^1.0.4",
+    "cheerio": "^1.0.0-rc.2",
+    "csv-stringify": "^3.0.0",
     "downcache": "0.0.9",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "mongodb": "^2.2.25",
+    "mongodb": "^3.0.8",
     "npmlog": "^4.0.2",
     "progress": "^2.0.0",
     "request": "^2.81.0"
@@ -32,5 +31,9 @@
   "bugs": {
     "url": "https://github.com/TimeMagazine/babynames/issues"
   },
-  "homepage": "https://github.com/TimeMagazine/babynames"
+  "homepage": "https://github.com/TimeMagazine/babynames",
+  "devDependencies": {
+    "async": "^2.6.0",
+    "fast-csv": "^2.4.1"
+  }
 }
