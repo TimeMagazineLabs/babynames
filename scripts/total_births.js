@@ -21,7 +21,10 @@ request("http://www.ssa.gov/oact/babynames/numberUSbirths.html", function(err, r
 			F: parseInt($tr.children("td:nth-child(3)").text().replace(/,/g, ""), 10),
 			both: 	parseInt($tr.children("td:nth-child(4)").text().replace(/,/g, ""), 10)
 		};
-		data[String(datum.year)] = datum;
+
+		if (datum.year) {
+			data[String(datum.year)] = datum;
+		}
 
 		csv += [datum.year, datum.M, datum.F, datum.both].join(",") + "\n";
 	});

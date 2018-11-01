@@ -826,11 +826,5 @@
     "M": 1963290,
     "F": 1874899,
     "both": 3838189
-  },
-  "NaN": {
-    "year": null,
-    "M": null,
-    "F": null,
-    "both": null
   }
 }
