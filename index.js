@@ -35,7 +35,7 @@ var store = module.exports.store = function(opts) {
 	// tools
 	["peaks", "dense", "normalize", "maxima", "pronunciation", "decades"].forEach(function(tool) {
 		if (opts[tool]) {
-			tools[tool](data, opts);			
+			tools[tool](data, opts);
 		}
 	});
 
@@ -69,7 +69,7 @@ function flatfiles(data, opts) {
 				if (opts.pronunciation) {
 					headers.push("pronunciation");
 					headers.push("stressed");
-				}				
+				}
 
 				for (var year = opts.start; year <= opts.end; year += 1) {
 					headers.push(year);
@@ -114,7 +114,7 @@ function flatfiles(data, opts) {
 					if (opts.format == "jsonp") {
 						fs.writeFileSync("./flat/individuals/" + d._id + ".json", opts.callback + "('" + JSON.stringify(d) + "');");
 					} else {
-						fs.writeFileSync("./flat/individuals/" + d._id + ".json", JSON.stringify(d, null, 2));				
+						fs.writeFileSync("./flat/individuals/" + d._id + ".json", JSON.stringify(d, null, 2));
 					}
 					roster.push(d._id);
 					bar.tick();
@@ -152,14 +152,16 @@ function flatfiles(data, opts) {
 
 function mongo(data, opts) {
 	var MongoClient = require('mongodb').MongoClient;
+	var databaseName = 'babynames';
 
 	// Connect to the db
-	MongoClient.connect("mongodb://localhost:27017/babynames", function(err, db) {
-		if(err) {		
+	MongoClient.connect("mongodb://localhost:27017", function(err, client) {
+		if(err) {
 			log.error(err);
 			return;
 		}
 
+		var db = client.db(databaseName);
 		var collection = db.collection("names");
 
 		var bar = new ProgressBar(':bar :percent', { total: data.length + 1, complete: "#", width: 100 });
@@ -174,7 +176,7 @@ function mongo(data, opts) {
 
 				bar.tick();
 				if (bar.complete) {
-					db.close();
+					client.close();
 				}
 			});
 		});
