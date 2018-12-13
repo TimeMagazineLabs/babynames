@@ -2,7 +2,7 @@
 
 Fun with the Social Security Administration's baby name data
 
-[![Build Status](https://travis-ci.org/TimeMagazine/babynames.png)](https://travis-ci.org/TimeMagazine/babynames)
+[![Build Status](https://travis-ci.org/TimeMagazine/babynames.svg)](https://travis-ci.org/TimeMagazine/babynames)
 
 ## Setup
 
