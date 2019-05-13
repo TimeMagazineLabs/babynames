@@ -88,8 +88,8 @@ As of 2013, there are 102,691 names that show up in at least one year at least f
 + `end`: Don't retrieve years after this year. Ex: `--end=2000`. Default is the present year.
 
 ### Exclude uncommon names 
-+ `min`: Don't include names that don't show up at least this many time in at least one year. Ex: `--min=25`. Default is `0`.
-+ `cutoff`: Don't include names that don't show up in at least this many individual years. Ex: `--cutoff=50`. Default is `0`.
++ `min`: Don't include names that don't show up at least this many time in at least one year. Ex: `--min=25`. Default is `1`.
++ `cutoff`: Don't include names that don't show up in at least this many individual years. Ex: `--cutoff=50`. Default is `1`.
 
 ## Analysis
 
