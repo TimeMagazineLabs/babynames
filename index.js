@@ -43,32 +43,37 @@ let store = function(opts) {
 }
 
 function mongo(data, opts) {
-	let MongoClient = require('mongodb').MongoClient;
+	opts = opts || {};
+	const MongoClient = require('mongodb').MongoClient;
+	const dbName = opts.db_name || 'babynames';
+	const mongo_URI = opts.mongo_uri || 'mongodb://localhost:27017';
+	const client = new MongoClient(mongo_URI, { useNewUrlParser: true });
+
+	console.log("Connecting to Mongo...");
 
 	// Connect to the db
-	MongoClient.connect("mongodb://localhost:27017/babynames", function(err, db) {
-		if(err) {		
+	client.connect(function(err) {
+		if(err) {
 			log.error(err);
 			return;
 		}
 
-		let collection = db.collection("names");
+		const db = client.db(dbName);
+		const collection = db.collection("names");
 
-		let bar = new ProgressBar(':bar :percent', { total: data.length + 1, complete: "#", width: 100 });
-		bar.tick();
+		console.log(`Successfully connected to Mongo and created "${ dbName }" database with a collection called "names."`);
+		console.log("Now adding data");
 
 		Object.values(data).forEach(function(d) {
-			collection.save(d, function(err, doc) {
-				if (err) {
-					log.error(err);
-					return;
-				}
+			d._id = d.id;
+		});
 
-				bar.tick();
-				if (bar.complete) {
-					db.close();
-				}
-			});
+		collection.insertMany(Object.values(data), function(err, result) {
+			if (err) {
+				log.error(err);
+			}
+			console.log(`Added ${ result.result.n } names.` );
+			client.close();
 		});
 	});
 }
@@ -83,6 +88,7 @@ let phonemes = function(data, opts) {
 		if (d.pronunciation) {
 			let phoneme = d.pronunciation.split(" ").slice(N)[0];
 			if (!phoneme) {
+				console.log("Couldn't location a pronunciation for", d.name);
 				return 0;
 			}
 			if (!phonemes[phoneme]) {
@@ -117,9 +123,8 @@ let phonemes = function(data, opts) {
 	fs.writeFileSync("./flat_files/phonemes.json", JSON.stringify(phonemes));
 }
 
-let commands = {
+const commands = {
 	download: download,
-	aggregate: aggregate,
 	store: store
 };
 
@@ -137,6 +142,12 @@ if (require.main === module) {
 			commands[argv._[0]]({});
 		}
 	} else {
+		if (!commands.hasOwnProperty(argv._[0])) {
+			console.log("Please pass a function (`download` or `store`) as the first argument.")
+			return;
+		}
 		commands[argv._[0]](argv);
 	}
+} else {
+	module.exports = commands;
 }

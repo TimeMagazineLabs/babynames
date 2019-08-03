@@ -1,6 +1,6 @@
 {
   "name": "babynames",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "Fun with the Social Security Administration's baby name data",
   "main": "index.js",
   "scripts": {
@@ -17,14 +17,12 @@
   "dependencies": {
     "adm-zip": "^0.4.13",
     "cheerio": "^1.0.0-rc.2",
-    "cmudict": "^1.0.2",
     "csv-stringify": "^5.3.0",
-    "d3-array": "^2.0.3",
+    "d3-array": "^2.2.0",
     "d3-collection": "^1.0.7",
     "downcache": "0.1.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "mongodb": "^3.2.4",
     "npmlog": "^4.1.2",
     "progress": "^2.0.3",
     "request": "^2.88.0"
@@ -36,7 +34,7 @@
   },
   "homepage": "https://github.com/TimeMagazine/babynames",
   "devDependencies": {
-    "async": "^2.6.2",
-    "fast-csv": "^2.5.0"
+    "async": "^3.1.0",
+    "fast-csv": "^3.4.0"
   }
 }
