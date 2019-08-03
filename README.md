@@ -2,9 +2,9 @@
 
 v0.1.1
 
-Fun with the Social Security Administration's [baby name data](http://www.ssa.gov/OACT/babynames/).
-
 [![Build Status](https://travis-ci.org/TimeMagazine/babynames.svg)](https://travis-ci.org/TimeMagazine/babynames)
+
+Fun with the Social Security Administration's [baby name data](http://www.ssa.gov/OACT/babynames/).
 
 ## Setup
 
