@@ -2,7 +2,7 @@
 
 v0.1.1
 
-[![Build Status](https://travis-ci.org/TimeMagazine/babynames.svg)](https://travis-ci.org/TimeMagazine/babynames)
+[![Build Status](https://travis-ci.org/TimeMagazineLabs/babynames.svg)](https://travis-ci.org/TimeMagazineLabs/babynames)
 
 Fun with the Social Security Administration's [baby name data](http://www.ssa.gov/OACT/babynames/).
 
@@ -12,7 +12,7 @@ This is a Node.js script, so you should consider [downloading Node](http://nodej
 
 To download the repo, simply clone it:
 
-	git clone https://github.com/TimeMagazine/babynames.git
+	git clone https://github.com/TimeMagazineLabs/babynames.git
 	cd babynames
 
 Then install the dependencies:
