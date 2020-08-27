@@ -32,3 +32,4 @@ extra/states/*
 scripts/cache/
 
 .DS_Store
+pnpm-lock.yaml

@@ -12,7 +12,7 @@ var csv = "year,male,female,total\n";
 
 request("http://www.ssa.gov/oact/babynames/numberUSbirths.html", function(err, response, body) {
 	var $ = cheerio.load(body);
-	$("center table tr").each(function(i, tr) {
+	$(".t-stripe tr").each(function(i, tr) {
 		if (i === 0) { return; } // header row
 		var $tr = $(tr);
 		var datum = {

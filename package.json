@@ -15,16 +15,16 @@
     "names"
   ],
   "dependencies": {
-    "adm-zip": "^0.4.7",
-    "cheerio": "^1.0.0-rc.2",
-    "csv-stringify": "^4.3.1",
-    "downcache": "0.1.0",
-    "minimist": "^1.2.0",
-    "mkdirp": "^0.5.1",
-    "mongodb": "^3.0.8",
-    "npmlog": "^4.0.2",
-    "progress": "^2.0.0",
-    "request": "^2.88.0"
+    "adm-zip": "^0.4.16",
+    "cheerio": "^1.0.0-rc.3",
+    "csv-stringify": "^5.5.1",
+    "downcache": "0.1.2",
+    "minimist": "^1.2.5",
+    "mkdirp": "^1.0.4",
+    "mongodb": "^3.6.0",
+    "npmlog": "^4.1.2",
+    "progress": "^2.0.3",
+    "request": "^2.88.2"
   },
   "author": "Chris Wilson",
   "license": "MIT",
@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/TimeMagazine/babynames",
   "devDependencies": {
-    "async": "^2.6.0",
-    "fast-csv": "^2.4.1"
+    "async": "^3.2.0",
+    "fast-csv": "^4.3.1"
   }
 }

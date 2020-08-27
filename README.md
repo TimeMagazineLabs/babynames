@@ -115,4 +115,4 @@ We've now got British baby names going back to 1996, accessed on Oct. 5, 2016 fr
 
 This script is provided free and open-source by Time under the MIT license. If you use it, you are politely encouraged to acknowledge Time and link to this page.
 
-The dictionary file [dict/2of12.txt](dict/2of12.txt) is from the [12 Dicts project](http://wordlist.aspell.net/12dicts-readme/), which is in the public domain.
+The dictionary file [dict/2of12.txt](dicts/2of12.txt) is from the [12 Dicts project](http://wordlist.aspell.net/12dicts-readme/), which is in the public domain.

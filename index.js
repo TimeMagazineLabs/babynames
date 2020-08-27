@@ -1,18 +1,17 @@
 #!/usr/bin/env node
 
-var fs = require("fs"),
-	log = require("npmlog"),
-	helper = require("./lib/helper"),
-	stringify = require("csv-stringify"),
-	mkdirp = require("mkdirp");
+const fs = require("fs");
+const log = require("npmlog");
+const helper = require("./lib/helper");
+const stringify = require("csv-stringify");
+const mkdirp = require("mkdirp");
+const  ProgressBar = require('progress');
 
-var ProgressBar = require('progress');
+const download = module.exports.download = require("./lib/download");
+const aggregate = require("./lib/aggregate");
+const tools = require("./lib/tools");
 
-var download = module.exports.download = require("./lib/download"),
-	aggregate = require("./lib/aggregate"),
-	tools = require("./lib/tools");
-
-var store = module.exports.store = function(opts) {
+const  store = module.exports.store = function(opts) {
 	if (opts.type == "phonemes") {
 		opts.pronunciation = true;
 		opts.peaks = true;
@@ -30,7 +29,7 @@ var store = module.exports.store = function(opts) {
 		opts.peaks = true;
 	}
 
-	var data = aggregate(opts);
+	let data = aggregate(opts);
 
 	// tools
 	["peaks", "dense", "normalize", "maxima", "pronunciation", "decades"].forEach(function(tool) {
@@ -53,7 +52,7 @@ var store = module.exports.store = function(opts) {
 }
 
 function flatfiles(data, opts) {
-	mkdirp("flat/individuals", function() {
+	mkdirp("flat/individuals").then(made => {
 			log.info("Writing to flat files.");
 			var bar = new ProgressBar(':bar :percent', { total: data.length, complete: "#", width: 100 });
 
@@ -144,14 +143,12 @@ function flatfiles(data, opts) {
 					}
 				});
 				fs.writeFileSync("./flat/roster_short.json", JSON.stringify(roster_short));
-
-
 			}
 	});
 }
 
 function mongo(data, opts) {
-	var MongoClient = require('mongodb').MongoClient;
+	const MongoClient = require('mongodb').MongoClient;
 
 	// Connect to the db
 	MongoClient.connect("mongodb://localhost:27017/babynames", function(err, db) {
@@ -160,9 +157,9 @@ function mongo(data, opts) {
 			return;
 		}
 
-		var collection = db.collection("names");
+		const collection = db.collection("names");
 
-		var bar = new ProgressBar(':bar :percent', { total: data.length + 1, complete: "#", width: 100 });
+		let bar = new ProgressBar(':bar :percent', { total: data.length + 1, complete: "#", width: 100 });
 		bar.tick();
 
 		helper.values(data).forEach(function(d) {
