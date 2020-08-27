@@ -1,10 +1,10 @@
 # Baby Names!
 
+Fun with the Social Security Administration's [baby name data](http://www.ssa.gov/OACT/babynames/).
+
 v0.1.1
 
 [![Build Status](https://travis-ci.org/TimeMagazineLabs/babynames.svg)](https://travis-ci.org/TimeMagazineLabs/babynames)
-
-Fun with the Social Security Administration's [baby name data](http://www.ssa.gov/OACT/babynames/).
 
 ## Setup
 
@@ -19,7 +19,7 @@ Then install the dependencies:
 
 	npm install
 
-## The Data 
+## Data 
 
 The Social Security Administration organizes the baby name data, somewhat inconveniently, as year-by-year text files named `yob[year].txt`, beginning in 1880 for national data and 1910 for state data. The data for the previous calendar year is usually released around Mother's Day.
 
@@ -31,7 +31,7 @@ The raw data is not included in the repo. Instead, you need to download it from 
 
 	# CLI
 	./index.js download 
-
+	
 	# Node
 	const babynames = require("babynames");
 	babynames.download({ [opts] }, function() {
@@ -49,7 +49,7 @@ You can also get the state-by-state data, which extracts to the [`data/states`](
 
 ### Total babies born each year
 
-There is also a file called `data/totals.json` with data on the total number of babies born (or at least, those issued a SSN) each year, [per the SSA](http://www.ssa.gov/oact/babynames/numberUSbirths.html), which is used for calculating frequencies as percentages. This is necessary because the totals are higher than the sum of each name in the name files, which don't include names that occur fewer than five times.
+There is also a file called `extra/totals.json` with data on the total number of babies born (or at least, those issued a SSN) each year, [per the SSA](http://www.ssa.gov/oact/babynames/numberUSbirths.html), which is used for calculating frequencies as percentages. This is necessary because the totals are higher than the sum of each name in the name files, which don't include names that occur fewer than five times.
 
 If you want to re-download this data--maybe it's a new year or you suspect there has been a revision--just run `./scripts/total_births.js`, which will scrape the page on the SSA website and overwrite the file in the repo.
 
@@ -139,21 +139,55 @@ First, the script reads every raw file from the SSA and stores the data on a per
 	  }
 	}
 
+### Formats
+
+Your choices are:
+
++ `json`: Each name is stored as an individual JSON file in the `/flat/individual/` directory.
++ `jsonp`: Each name is stored as an individual JSON-P file in the `/flat/individual/` directory. It is wrapped in a callback function named `ticallback` by default, which you can override with `opts.callback`.
++ `csvs`: Each name is stored as an individual CSV file in the `/flat/individual/` directory.
++ `csv`: All names are packaged into one CSV file and stored in `/flat/names.csv/`. This file will be able 30MB if you don't include limiting specifications (below). This preprocessed file is included in this repo.
++ `mongodb`: All names are inserted into a MongoDB instance. You are responsible for running a Mongo server at `localhost:27017` or updating the source to point to your  instance. *Note:* Because this is optional, the [mongodb](https://www.npmjs.org/package/mongodb) Node module is not listed as a dependency, you you'll need to install it yourself.
+
+## Reducing the size
+As of 2013, there are 102,691 names that show up in at least one year at least five times. Many users will not be interested in this volume of data. There are several ways to reduce the scope with command line options.
+
+### Limit the years
+
+Using `--start` and `--end` can narrow the window of time:
+
+  `./index.js store --format=csv --start=1960 --end=1980`
+
+### Exclude uncommon names 
+
++ `min`: Don't include names that don't show up at least this many time in at least one year. Ex: `--min=25`. Default is `0`.
++ `cutoff`: Don't include names that don't show up in at least this many individual years. Ex: `--cutoff=50`. Default is `0`.
+
+  `./index.js store --format=json --min=25 --cutoff=10`
+
+  
 ## Analysis
 
 **This is still in the works**
 
-The `store` script comes with several options for basic analysis:
+The script comes with several options for basic analysis:
 
 + `normalize`: Add a third property to each name that is the normalized value for the percentage figures, such that the peak percentage year is 1.
 + `peak`: Find the peak value and year for both raw values and percents
 + `maxima`: Identify all the local maxima -- points where every value 5 years before and after is lower. Only counts maxima that are at least 25 percent of peak value.
 + `dense`: If a name does not appear in a year in the range specified between `start` and `end`, list that year in the data as `0`. Otherwise it is not included at all (a "sparse" format).
 
-## Extras
+### Types
+
+For csv outputs, you can get the data back as either raw numbers of new babies each year with a given name (`--type=values`, which is the default) or as a percent (`--type=values`). JSON formats return both percents and values. 
+
+### Phonemes
+You can also pass a special type, `--type=phonemes`, to get back a JSON document of phoneme percents for each year for all names. By default, the script examines the first phoneme in each name. You can use `--N==TK` to aggregate around the TKth phonemes in the name. Use a negative value to start from the end.
+
+### Extras
 We've now got British baby names going back to 1996, accessed on Oct. 5, 2016 from the U.K. [Office for National Statistics](http://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/adhocs/006073babynames1996to2015). The total number of live births was downloaded [here](http://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/birthsummarytables) from the same source.
 
-## License
+# License
 
 This script is provided free and open-source by Time under the MIT license. If you use it, you are politely encouraged to acknowledge Time and link to this page.
 
