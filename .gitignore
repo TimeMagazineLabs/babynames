@@ -24,11 +24,12 @@ build/Release
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
 node_modules
 
-data
+data/national/
+data/states/
 names.zip
-flat
-flat/*
-extra/states/*
+flat_files/*
 scripts/cache/
+
+test/COMMANDS.md
 
 .DS_Store

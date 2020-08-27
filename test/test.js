@@ -2,16 +2,19 @@
 
 var babynames = require("../index");
 
+// equivalent on CLI of ./index.js download
 babynames.download({}, function() {
+
+
 	babynames.store({
-		names: "Christopher,Susan",
+		names: "Christopher,Catharine,Catherine",
 		format: "csv",
 		peaks: true,
 		min: 25
 	});
 
 	babynames.store({
-		names: "Alex,Lothar",
+		names: "Alex,David",
 		format: "json",
 		normalize: true,
 		end: 1990

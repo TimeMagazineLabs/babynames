@@ -2,22 +2,22 @@
 // ./index.js download
 // ./index.js download --states
 
-var fs = require("fs");
-var argv = require('minimist')(process.argv.slice(2));
-var mkdirp = require("mkdirp");
+const fs = require("fs");
+const argv = require('minimist')(process.argv.slice(2));
+const mkdirp = require("mkdirp");
 
-var start = argv.start? parseInt(argv.start) : 1960;
-var end = argv.end? parseInt(argv.end) : 2015;
+const start = argv.start? parseInt(argv.start) : 1960;
+const end = argv.end? parseInt(argv.end) : 2017;
 
-var data = {};
-var totals = {};
-var states = {};
+let data = {};
+let totals = {};
+let states = {};
 
 console.log("Gathering nationwide totals for", start, "to", end);
 
 // get name totals for national
 for (var y = start; y <= end; y += 1) {
-	fs.readFileSync("../data/yob" + y + ".txt", "utf8").split(/[\n\r]+/g).forEach(line => {
+	fs.readFileSync("../data/national/yob" + y + ".txt", "utf8").split(/[\n\r]+/g).forEach(line => {
 		var info = line.split(/,/g);
 		var handle = info[0] + "-" + info[1];
 		totals[handle] = totals[handle] || {};
@@ -27,7 +27,7 @@ for (var y = start; y <= end; y += 1) {
 
 console.log("Got totals for", Object.keys(totals).length, "names. Reading states.");
 
-fs.readdirSync("../extra/states").forEach(file => {
+fs.readdirSync("../data/states").forEach(file => {
 	if (!/[A-Z]{2}\.TXT/.test(file)) {
 		return;
 	}
@@ -35,7 +35,7 @@ fs.readdirSync("../extra/states").forEach(file => {
 	states[file.split(".")[0]] = {};
 
 	// state data
-	fs.readFileSync("../extra/states/" + file, "utf8").split(/[\n\r]+/g).forEach(line => {
+	fs.readFileSync("../data/states/" + file, "utf8").split(/[\n\r]+/g).forEach(line => {
 		var info = line.split(/,/g);
 		var handle = info[3] + "-" + info[1];
 		var year = parseInt(info[2]);

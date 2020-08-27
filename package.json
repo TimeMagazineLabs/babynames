@@ -1,6 +1,6 @@
 {
   "name": "babynames",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "Fun with the Social Security Administration's baby name data",
   "main": "index.js",
   "scripts": {
@@ -15,22 +15,26 @@
     "names"
   ],
   "dependencies": {
-    "adm-zip": "^0.4.7",
-    "async": "^2.1.4",
-    "cheerio": "^0.22.0",
-    "csv-stringify": "^1.0.2",
-    "downcache": "0.0.9",
-    "minimist": "^1.2.0",
+    "adm-zip": "^0.4.13",
+    "cheerio": "^1.0.0-rc.2",
+    "csv-stringify": "^5.3.0",
+    "d3-array": "^2.2.0",
+    "d3-collection": "^1.0.7",
+    "downcache": "0.1.1",
+    "minimist": "^1.2.3",
     "mkdirp": "^0.5.1",
-    "mongodb": "^2.1.18",
-    "npmlog": "^4.0.0",
-    "progress": "^1.1.8",
-    "request": "^2.72.0"
+    "npmlog": "^4.1.2",
+    "progress": "^2.0.3",
+    "request": "^2.88.0"
   },
   "author": "Chris Wilson",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/TimeMagazine/babynames/issues"
   },
-  "homepage": "https://github.com/TimeMagazine/babynames"
+  "homepage": "https://github.com/TimeMagazine/babynames",
+  "devDependencies": {
+    "async": "^3.1.0",
+    "fast-csv": "^3.4.0"
+  }
 }
