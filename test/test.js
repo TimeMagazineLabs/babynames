@@ -4,14 +4,14 @@ var babynames = require("../index");
 
 babynames.download({}, function() {
 	babynames.store({
-		names: "Christopher,Susan",
+		names: "Christopher,Sydney",
 		format: "csv",
 		peaks: true,
 		min: 25
 	});
 
 	babynames.store({
-		names: "Alex,Lothar",
+		names: "Alex,Cameron",
 		format: "json",
 		normalize: true,
 		end: 1990
