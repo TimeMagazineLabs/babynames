@@ -2,36 +2,17 @@
 
 const fs = require("fs");
 const log = require("npmlog");
-<<<<<<< HEAD
-const helper = require("./lib/helper");
-const stringify = require("csv-stringify");
-const mkdirp = require("mkdirp");
-const  ProgressBar = require('progress');
-
-const download = module.exports.download = require("./lib/download");
-const aggregate = require("./lib/aggregate");
-const tools = require("./lib/tools");
-
-const  store = module.exports.store = function(opts) {
-	if (opts.type == "phonemes") {
-		opts.pronunciation = true;
-		opts.peaks = true;
-		opts.format = "json";
-	}
-
-=======
-const collection = require("d3-collection");
 const stringify = require("csv-stringify");
 const mkdirp = require("mkdirp");
 const ProgressBar = require('progress');
+const array = require('d3-array');
 
-const download = require("./lib/download");
+const download = module.exports.download = require("./lib/download");
 const aggregate = require("./lib/aggregate");
 const analysis = require("./lib/analysis");
 const writeFlatFiles = require("./lib/writeFlatFiles");
 
 let store = function(opts) {
->>>>>>> 721033d33db01a787a2713ed3e9f8059d40da05d
 	if (!opts.format) {
 		log.error("Please provide a --format param. Options are json, csv, csvs, jsonp, mongodb");
 		return;
@@ -39,14 +20,11 @@ let store = function(opts) {
 
 	opts.format = opts.format.toLowerCase();
 
-<<<<<<< HEAD
 	if (opts.maxima || opts.normalize) {
 		opts.peaks = true;
 	}
 
-=======
 	// aggregate the data
->>>>>>> 721033d33db01a787a2713ed3e9f8059d40da05d
 	let data = aggregate(opts);
 
 	// add any analyses we'd like
@@ -68,7 +46,6 @@ let store = function(opts) {
 	}
 }
 
-<<<<<<< HEAD
 function flatfiles(data, opts) {
 	mkdirp("flat/individuals").then(made => {
 			log.info("Writing to flat files.");
@@ -167,16 +144,11 @@ function flatfiles(data, opts) {
 
 function mongo(data, opts) {
 	const MongoClient = require('mongodb').MongoClient;
-=======
-function mongo(data, opts) {
-	opts = opts || {};
-	const MongoClient = require('mongodb').MongoClient;
 	const dbName = opts.db_name || 'babynames';
 	const mongo_URI = opts.mongo_uri || 'mongodb://localhost:27017';
 	const client = new MongoClient(mongo_URI, { useNewUrlParser: true });
 
 	console.log("Connecting to Mongo...");
->>>>>>> 721033d33db01a787a2713ed3e9f8059d40da05d
 
 	// Connect to the db
 	client.connect(function(err) {
@@ -185,18 +157,14 @@ function mongo(data, opts) {
 			return;
 		}
 
-<<<<<<< HEAD
-		const collection = db.collection("names");
-
 		let bar = new ProgressBar(':bar :percent', { total: data.length + 1, complete: "#", width: 100 });
 		bar.tick();
-=======
+
 		const db = client.db(dbName);
 		const collection = db.collection("names");
 
 		console.log(`Successfully connected to Mongo and created "${ dbName }" database with a collection called "names."`);
 		console.log("Now adding data");
->>>>>>> 721033d33db01a787a2713ed3e9f8059d40da05d
 
 		Object.values(data).forEach(function(d) {
 			d._id = d.id;
