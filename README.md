@@ -80,7 +80,7 @@ Your choices are:
 + `mongodb`: All names are inserted into a MongoDB instance. You are responsible for running a Mongo server at `localhost:27017` or updating the source to point to your  instance. *Note:* Because this is optional, the [mongodb](https://www.npmjs.org/package/mongodb) Node module is not listed as a dependency, you you'll need to install it yourself.
 
 ## Reducing the size
-As of 2013, there are 102,691 names that show up in at least one year at least five times. Many users will not be interested in this volume of data. There are several ways to reduce the scope with command line options.
+As of 2019, there are 110,337 names (double counting those used for male and female babies) that show up in at least one year at least five times. Many users will not be interested in this volume of data. There are several ways to reduce the scope with command line options.
 
 ### Limit the years
 

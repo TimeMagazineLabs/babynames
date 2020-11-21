@@ -15,13 +15,13 @@
     "names"
   ],
   "dependencies": {
-    "adm-zip": "^0.4.16",
+    "adm-zip": "^0.5.0",
     "cheerio": "^1.0.0-rc.3",
-    "csv-stringify": "^5.5.1",
+    "csv-stringify": "^5.5.3",
     "downcache": "0.1.2",
     "minimist": "^1.2.5",
     "mkdirp": "^1.0.4",
-    "mongodb": "^3.6.0",
+    "mongodb": "^3.6.3",
     "npmlog": "^4.1.2",
     "progress": "^2.0.3",
     "request": "^2.88.2"
@@ -34,6 +34,6 @@
   "homepage": "https://github.com/TimeMagazine/babynames",
   "devDependencies": {
     "async": "^3.2.0",
-    "fast-csv": "^4.3.1"
+    "fast-csv": "^4.3.5"
   }
 }
