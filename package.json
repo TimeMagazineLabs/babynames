@@ -36,6 +36,6 @@
     "async": "^3.2.0",
     "d3-array": "^2.8.0",
     "d3-collection": "^1.0.7",
-    "fast-csv": "^4.3.5"
+    "fast-csv": "^4.3.6"
   }
 }
