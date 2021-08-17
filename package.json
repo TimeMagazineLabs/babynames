@@ -1,6 +1,6 @@
 {
   "name": "babynames",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Fun with the Social Security Administration's baby name data",
   "main": "index.js",
   "scripts": {
