@@ -5,7 +5,6 @@ const log = require("npmlog");
 const stringify = require("csv-stringify");
 const mkdirp = require("mkdirp");
 const ProgressBar = require('progress');
-const array = require('d3-array');
 
 const download = module.exports.download = require("./lib/download");
 const aggregate = require("./lib/aggregate");
@@ -213,11 +212,11 @@ let phonemes = function(data, opts) {
 		}
 	});
 
-	phonemes = array.entries(phonemes).map(function(d) {
+	phonemes = Object.entries(phonemes).map(function(d) {
 		return {
 			phoneme: d.key,
 			names: d.value.names.sort(function(a, b) { return b.peak - a.peak; }).map(function(d) { return d.name; }),
-			percents: array.entries(d.value.percents).filter(function(d) { return d.value != 0; })
+			percents: Object.entries(d.value.percents).filter(function(d) { return d.value != 0; })
 		}
 	});
 
