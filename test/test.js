@@ -4,26 +4,24 @@ var babynames = require("../index");
 
 // equivalent on CLI of ./index.js download
 babynames.download({}, function() {
-
-
 	babynames.store({
-		names: "Christopher,Catharine,Catherine,Sydney",
+		names: "Alex,Cameron",
 		format: "csv",
-		peaks: true,
-		min: 25
+		min: 25,
+		end: 1950
 	});
 
 	babynames.store({
-		names: "Alex,Cameron",
+		names: "Christopher,Catharine,Catherine,Sydney",
 		format: "json",
 		normalize: true,
-		end: 1990
+		peaks: true
 	});
 
 	babynames.store({
 		names: "Martin,Samuel",
 		format: "csvs",
-		start: 1950
+		normalize: true
 	});
 });
 
