@@ -8,7 +8,8 @@ babynames.download({}, function() {
 		names: "Alex,Cameron",
 		format: "csv",
 		min: 25,
-		end: 1950
+		end: 1950,
+		peaks: true		
 	});
 
 	babynames.store({

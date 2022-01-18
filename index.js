@@ -19,7 +19,7 @@ let store = function(opts) {
 
 	opts.format = opts.format.toLowerCase();
 
-	if (opts.maxima || opts.normalize) {
+	if (opts.maxima || opts.normalize || opts.peak) {
 		opts.peaks = true;
 	}
 
