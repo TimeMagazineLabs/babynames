@@ -22,7 +22,7 @@
     "minimist": "^1.2.5",
     "mkdirp": "^1.0.4",
     "mongodb": "^4.1.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "npmlog": "^5.0.0",
     "progress": "^2.0.3",
     "request": "^2.88.2"
