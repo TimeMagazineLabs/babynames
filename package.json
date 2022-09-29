@@ -35,7 +35,7 @@
   "homepage": "https://github.com/TimeMagazine/babynames",
   "devDependencies": {
     "async": "^3.2.1",
-    "d3": "^6.0.0",
+    "d3": "^7.6.1",
     "fast-csv": "^4.3.6"
   }
 }
